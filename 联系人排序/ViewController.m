@@ -10,18 +10,17 @@
 #import "Person.h"
 #import "TableViewCell.h"
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
-{
-    NSMutableArray *_sortedArray;
-    UILocalizedIndexedCollation *_collation;
-    NSMutableArray<Person *> * _contants;
-}
+
 @end
 
-static const NSString * identifiler = @"Cell";
+static NSString * identifiler = @"Cell";
 
 @implementation ViewController
 {
     __weak IBOutlet UITableView *_tableView;
+    NSMutableArray *_sortedArray;
+    UILocalizedIndexedCollation *_collation;
+    NSMutableArray<Person *> * _contants;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,14 +46,14 @@ static const NSString * identifiler = @"Cell";
     _collation = [UILocalizedIndexedCollation currentCollation];
     //得出collation索引的数量，这里是27个（26个字母和1个#）
     NSInteger sectionTitlesCount = [[_collation sectionTitles] count];
-    //初始化一个数组newSectionsArray用来存放最终的数据
+    //初始化一个数组_sortedArray用来存放最终的数据
     _sortedArray = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];
-    //初始化27个空数组加入newSectionsArray
+    //初始化27个空数组加入_sortedArray
     for (NSInteger index = 0; index < sectionTitlesCount; index++) {
         NSMutableArray *array = [[NSMutableArray alloc] init];
         [_sortedArray addObject:array];
     }
-    //将每个人按name分到某个section下
+    //将每个人按sort分到某个section下
     for (Person *temp in tempArray) {
         //获取name属性的值所在的位置，比如"林丹"，首字母是L，在A~Z中排第11（第一位是0），sectionNumber就为11
         NSInteger sectionNumber = [_collation sectionForObject:temp collationStringSelector:@selector(sort)];

@@ -61,7 +61,7 @@ static NSString * identifiler = @"Cell";
         [sectionNames addObject:temp];
     }
     
-    //对每个section中的数组按照name属性排序
+    //对每个section中的数组按照sort属性排序
     for (int index = 0; index < sectionTitlesCount; index++) {
         NSMutableArray *personArrayForSection = _sortedArray[index];
         NSArray *sortedPersonArrayForSection = [_collation sortedArrayFromArray:personArrayForSection collationStringSelector:@selector(sort)];
